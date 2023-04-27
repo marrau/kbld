@@ -65,11 +65,20 @@ type Source struct {
 
 type ImageOverride struct {
 	ImageRef
-	NewImage          string                     `json:"newImage"`
-	Preresolved       bool                       `json:"preresolved,omitempty"`
-	TagSelection      *versions.VersionSelection `json:"tagSelection,omitempty"`
-	PlatformSelection *PlatformSelection         `json:"platformSelection,omitempty"`
-	ImageOrigins      []Origin                   `json:"origins,omitempty"`
+	NewImage          string             `json:"newImage"`
+	Preresolved       bool               `json:"preresolved,omitempty"`
+	TagSelection      *VersionSelection  `json:"tagSelection,omitempty"`
+	PlatformSelection *PlatformSelection `json:"platformSelection,omitempty"`
+	ImageOrigins      []Origin           `json:"origins,omitempty"`
+}
+
+type VersionSelection struct {
+	versions.VersionSelection
+	Regex *VersionSelectionRegex `json:"regex,omitempty" protobuf:"bytes,2,opt,name=regex"`
+}
+
+type VersionSelectionRegex struct {
+	Pattern string `json:"pattern,omitempty" protobuf:"bytes,1,opt,name=pattern"`
 }
 
 // PlatformSelection

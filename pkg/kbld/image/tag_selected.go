@@ -41,12 +41,13 @@ func (i TagSelectedImage) URL() (string, []ctlconf.Origin, error) {
 		if err != nil {
 			return "", nil, err
 		}
-	case i.selection.Regex != nil: {
-		tag, _, err = i.RegexTagSelect(repo)
-		if err != nil {
-			return "", nil, err
+	case i.selection.Regex != nil:
+		{
+			tag, _, err = i.RegexTagSelect(repo)
+			if err != nil {
+				return "", nil, err
+			}
 		}
-	}
 	default:
 		return "", nil, fmt.Errorf("Unknown tag selection strategy")
 	}

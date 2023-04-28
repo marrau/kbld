@@ -9,6 +9,7 @@ import (
 	"sort"
 
 	regname "github.com/google/go-containerregistry/pkg/name"
+	"github.com/maruel/natural"
 	ctlconf "github.com/vmware-tanzu/carvel-kbld/pkg/kbld/config"
 	ctlreg "github.com/vmware-tanzu/carvel-kbld/pkg/kbld/registry"
 	"github.com/vmware-tanzu/carvel-vendir/pkg/vendir/versions"
@@ -79,7 +80,7 @@ func (i TagSelectedImage) RegexTagSelect(repo regname.Repository) (string, []ctl
 	}
 
 	// return last item of a sorted slice which should be the highest "version" found for your regex-pattern
-	sort.Strings(matchingTags)
+	sort.Sort(natural.StringSlice(matchingTags))
 	highestVersion := matchingTags[len(matchingTags)-1]
 
 	return highestVersion, nil, nil

@@ -67,11 +67,15 @@ func (i TagSelectedImage) RegexTagSelect(repo regname.Repository) (string, []ctl
 		return "", nil, err
 	}
 
-	matchingTags := make([]string, len(tags))
+	matchingTags := make([]string, 0, len(tags))
 	for _, tag := range tags {
 		if regex.MatchString(tag) {
 			matchingTags = append(matchingTags, tag)
 		}
+	}
+
+	if len(matchingTags) == 0 {
+		return "", nil, fmt.Errorf("expected to find at least one version, but did not")
 	}
 
 	// return last item of a sorted slice which should be the highest "version" found for your regex-pattern
